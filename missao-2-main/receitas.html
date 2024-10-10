@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo | Receitas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-warning" onload="preencheCatalogo()">
+    <div class="container-fluid pb-5">
+        <h1 class="text-center mt-4">Catálogo de Receitas</h1>
+        
+        
+        <div id="pnlCatalogo" class="d-flex flex-wrap justify-content-center mt-4">
+            
+        </div>
+    </div>
+
+    
+    <footer style="position: fixed; bottom: 0; width: 100%;">
+        ~ Bruno Venturelli@2024 ~
+    </footer>
+
+    
+    <script>
+        
+        const receitas = [
+            {
+                titulo: "Mousse de Maracujá",
+                imagem: "./mousse-maracuja.jpg",
+                preparo:"Bata no liquidificador o leite condensado, o creme de leite e o suco de maracujá. Leve à geladeira por 4 horas.",
+                ingredientes: [
+                    "1 lata de leite condensado",
+                    "1 lata de creme de leite",
+                    "1 xícara de suco de maracujá concentrado"
+                ]
+            },
+            {
+                titulo: "Pão de Queijo",
+                imagem: "./pao-de-queijo.jpg",
+                preparo:"Misture o polvilho, o queijo e o ovo. Adicione o leite fervido aos poucos até formar uma massa. Asse por 25 minutos.",
+                ingredientes: [
+                    "500g de polvilho doce",
+                    "200g de queijo minas ralado",
+                    "1 ovo",
+                    "1 xícara de leite fervido"
+                ]
+            },
+            {
+                titulo: "Brigadeiro Gourmet",
+                imagem: "./brigadeiro-gourmet.jpg",
+                preparo:"Em uma panela, misture o leite condensado, o chocolate em pó e a manteiga. Cozinhe em fogo médio até desgrudar do fundo. Deixe esfriar, faça bolinhas e passe no granulado.",
+                ingredientes: [
+                    "1 lata de leite condensado",
+                    "4 colheres de chocolate em pó",
+                    "1 colher de manteiga",
+                    "Granulado a gosto"
+                ]
+            },
+            {
+                titulo: "Empadão de Frango",
+                imagem: "./empadao-frango.jpg",
+                preparo:"Misture a farinha e a manteiga até formar uma massa. Reserve. Para o recheio, refogue o frango com os temperos. Forre uma forma com a massa, adicione o recheio e cubra com mais massa. Asse a 200°C por 30 minutos.",
+                ingredientes: [
+                    "500g de farinha de trigo",
+                    "250g de manteiga",
+                    "1 peito de frango desfiado",
+                    "1 cebola picada",
+                    "2 dentes de alho",
+                    "1 tomate picado",
+                    "Sal e pimenta a gosto"
+                ]
+            },
+        ]
+
+        
+        function getListaIngredientes(receita) {
+            let listaHTML = '<ul class="ingredientes-list">';
+            listaHTML += receita.ingredientes
+                .map(ingrediente => `<li>${ingrediente}</li>`)
+                .reduce((acc, item) => acc + item, '');
+            listaHTML += '</ul>';
+            return listaHTML;
+        }
+
+        
+        function getCard(receita) {
+            return `
+                <div class="card m-2" style="width: 250px;">
+                    <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">
+                            ${getListaIngredientes(receita)}
+                            <hr>
+                            <p>${receita.preparo}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        
+        function preencheCatalogo() {
+            const pnlCatalogo = document.getElementById('pnlCatalogo');
+            const cardsHTML = receitas
+                .map(receita => getCard(receita))
+                .reduce((acc, card) => acc + card, '');
+            pnlCatalogo.innerHTML = cardsHTML;
+        }
+    </script>
+</body>
+</html>
